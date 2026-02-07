@@ -4,9 +4,9 @@
   iosevka,
   set ? "LyteTerm",
   pname ? "Iosevka${set}",
-  version ? "33.2.2",
-  hash ? "sha256-dhMTcceHru/uLHRY4eWzFV+73ckCBBnDlizP3iY5w5w=",
-  npmDepsHash ? "sha256-5DcMV9N16pyQxRaK6RCoeghZqAvM5EY1jftceT/bP+o=",
+  version ? "34.1.0",
+  hash ? "sha256-vdjf2MkKP9DHl/hrz9xJMWMuT2AsonRdt14xQTSsVmU=",
+  npmDepsHash ? "sha256-YMfePtKg4kpZ4iCpkq7PxfyDB4MIRg/tgCNmLD31zKo=",
   ...
 }:
 let
@@ -34,8 +34,8 @@ in
       exportGlyphNames = true
 
       [buildPlans.${pname}.ligations]
-      inherits = "dlig"
-      disables = [ "exeqeqeq", "exeqeq", "eqexeq-dl", "exeq", "tildeeq" ]
+      inherits = "default-calt"
+      disables = [ "exeq" ]
 
       [buildPlans.${pname}.weights.regular]
       shape = 400
