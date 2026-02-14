@@ -11,14 +11,17 @@
       ];
       genSystems = inputs.nixpkgs.lib.genAttrs supportedSystems;
       systemPkgs = system: (import inputs.nixpkgs { inherit system; });
-      gen = func: (genSystems (system: func (systemPkgs system)));
+    in
+    let
+      # fonts are platform-independent, so build once on x86_64-linux and reuse everywhere
+      buildPkgs = systemPkgs "x86_64-linux";
+      font = buildPkgs.callPackage ./default.nix { };
+      subset = buildPkgs.callPackage ./subset.nix { iosevka-lyte = font; };
     in
     {
-      packages = gen (pkgs: {
-        default = pkgs.callPackage ./default.nix { };
-        subset = pkgs.callPackage ./subset.nix {
-          iosevka-lyte = inputs.self.packages.${pkgs.system}.default;
-        };
+      packages = genSystems (_: {
+        default = font;
+        inherit subset;
       });
     };
 
